@@ -36,7 +36,7 @@ Create a handler for synchronizing items
 -   `options` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** options of current handler
     -   `options.getter` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** required, is function, get value from source
     -   `options.setter` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** required, is function, set value into items
-    -   `options.duration` **integer** optional, milliseconds, duration of synchronizing operation, default value is 4000
+    -   `options.duration` **integer** optional, milliseconds, duration of synchronizing operation, default value is 3000
 
 ### to
 

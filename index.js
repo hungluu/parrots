@@ -31,7 +31,7 @@ const parrots = (options) => new ParrotHandler(options)
  * @param {object} options options of current handler
  * @param {Function} options.getter required, is function, get value from source
  * @param {Function} options.setter required, is function, set value into items
- * @param {integer} options.duration optional, milliseconds, duration of synchronizing operation, default value is 4000
+ * @param {integer} options.duration optional, milliseconds, duration of synchronizing operation, default value is 3000
  */
 class ParrotHandler {
   constructor (options) {
