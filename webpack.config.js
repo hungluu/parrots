@@ -1,13 +1,20 @@
-var entrypoint = process.env.npm_lifecycle_event === 'dev' ?
-  'webpack-dev-server/client?http://localhost:8080' :
-  './app/index.js';
+const webpack = require('webpack')
+
+const package = require('./package.json')
+const packageName = package.name
+const packageFile = packageName + '.js'
+const packageFileMin = packageName + '.min.js'
 
 module.exports = {
-  entry: entrypoint,
+  entry: {
+    packageFile : './entry.js',
+    packageFileMin : './entry.js'
+  },
   output: {
     path: __dirname + '/dist',
-    filename: 'parrots.js'
+    filename: '[name]'
   },
+  devtool: 'source-map',
   module: {
     loaders: [
       {
@@ -20,5 +27,10 @@ module.exports = {
       }
     ]
   },
-  plugins: [HtmlWebpackPluginConfig, ExtractTextPluginConfig]
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      include: /\.min\.js$/,
+      minimize: true
+    })
+  ]
 }

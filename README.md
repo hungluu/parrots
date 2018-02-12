@@ -1,5 +1,6 @@
 # Parrots
 Continuously synchronizing web items without worrying about lags, delays or misses. Parrot em all! :baby_chick:
+
 Suitable for synchronizing html element scroll left, scroll top, width, height, ... or any other javascript things like object properties, array items.
 
 ## Installation
