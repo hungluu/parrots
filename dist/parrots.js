@@ -1,4 +1,4 @@
-/*! parrots v0.0.3 | Hung Luu <hungluu2106@gmail.com> */
+/*! parrots v0.0.4 | Hung Luu <hungluu2106@gmail.com> */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -74,9 +74,11 @@
 var ParrotsHandler = __webpack_require__(1);
 
 /**
- * @module parrots
- * Create a new instance of ParrotHandler
- * @param {object} options required options are getter, setter
+ * Create a new instance of ParrotsHandler
+ * @param {object} options options of current handler
+ * @param {Function} options.getter required, is function, get value from source
+ * @param {Function} options.setter required, is function, set value into items
+ * @param {integer} options.duration optional, milliseconds, duration of synchronizing operation, default value is 2000
  * @return {ParrotHandler}
  *
  * @example // Create a handle to synchronize scroll left
