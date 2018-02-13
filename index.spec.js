@@ -1,4 +1,4 @@
-const ParrotsHandler = require('./ParrotsHandler')
+const ParrotsHandler = require('./index').ParrotsHandler
 const kindOf = require('kind-of')
 
 describe('ParrotsHandler', function () {

@@ -1,4 +1,4 @@
-/*! parrots v0.0.4 | Hung Luu <hungluu2106@gmail.com> */
+/*! parrots v0.0.5 | Hung Luu <hungluu2106@gmail.com> */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -71,42 +71,6 @@
 "use strict";
 
 
-var ParrotsHandler = __webpack_require__(1);
-
-/**
- * Create a new instance of ParrotsHandler
- * @param {object} options options of current handler
- * @param {Function} options.getter required, is function, get value from source
- * @param {Function} options.setter required, is function, set value into items
- * @param {integer} options.duration optional, milliseconds, duration of synchronizing operation, default value is 2000
- * @return {ParrotHandler}
- *
- * @example // Create a handle to synchronize scroll left
- * parrots({
- *  // get scroll left from source
- *  getter: (el) => $(el).scrollLeft(),
- *  // set scroll left into items
- *  setter: (el, value) => $(el).scrollLeft(value)
- * })
- */
-var parrots = function parrots(options) {
-  return new ParrotsHandler(options);
-};
-
-module.exports = parrots;
-
-if (typeof window !== 'undefined') {
-  // window injecting
-  window.parrots = parrots;
-}
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -119,9 +83,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @license MIT
  */
 
-var raf = __webpack_require__(2);
-var objectAssign = __webpack_require__(6);
-var kindOf = __webpack_require__(7);
+var raf = __webpack_require__(1);
+var objectAssign = __webpack_require__(5);
+var kindOf = __webpack_require__(6);
 
 /**
  * Create a handler for synchronizing items
@@ -248,16 +212,44 @@ var ParrotsHandler = function () {
   return ParrotsHandler;
 }();
 
-module.exports = ParrotsHandler;
+/**
+ * Create a new instance of ParrotsHandler
+ * @param {object} options options of current handler
+ * @param {Function} options.getter required, is function, get value from source
+ * @param {Function} options.setter required, is function, set value into items
+ * @param {integer} options.duration optional, milliseconds, duration of synchronizing operation, default value is 2000
+ * @return {ParrotHandler}
+ *
+ * @example // Create a handle to synchronize scroll left
+ * parrots({
+ *  // get scroll left from source
+ *  getter: (el) => $(el).scrollLeft(),
+ *  // set scroll left into items
+ *  setter: (el, value) => $(el).scrollLeft(value)
+ * })
+ */
+
+
+var parrots = function parrots(options) {
+  return new ParrotsHandler(options);
+};
+
+exports = module.exports = parrots;
+exports.ParrotsHandler = ParrotsHandler;
+
+if (typeof window !== 'undefined') {
+  // window injecting
+  window.parrots = parrots;
+}
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
-var now = __webpack_require__(4),
+var now = __webpack_require__(3),
     root = typeof window === 'undefined' ? global : window,
     vendors = ['moz', 'webkit'],
     suffix = 'AnimationFrame',
@@ -333,10 +325,10 @@ module.exports.polyfill = function (object) {
   object.requestAnimationFrame = raf;
   object.cancelAnimationFrame = caf;
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -366,7 +358,7 @@ try {
 module.exports = g;
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -407,10 +399,10 @@ module.exports = g;
 }).call(undefined);
 
 //# sourceMappingURL=performance-now.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -603,7 +595,7 @@ process.umask = function () {
 };
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -699,7 +691,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 };
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
