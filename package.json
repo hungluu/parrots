@@ -1,6 +1,6 @@
 {
   "name": "parrots",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Continuously synchronizing web items without worrying about lags, delay or misses",
   "main": "index.js",
   "scripts": {
@@ -38,6 +38,8 @@
     "webpack": "^3.11.0"
   },
   "files": [
-    "dist"
+    "dist/parrots.js",
+    "dist/parrots.min.js",
+    "dist/parrots.min.js.map"
   ]
 }

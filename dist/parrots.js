@@ -1,4 +1,4 @@
-/*! parrots v0.0.2 | Hung Luu <hungluu2106@gmail.com> */
+/*! parrots v0.0.3 | Hung Luu <hungluu2106@gmail.com> */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
