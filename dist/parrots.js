@@ -91,6 +91,13 @@ var parrots = function parrots(options) {
   return new ParrotsHandler(options);
 };
 
+module.exports = parrots;
+
+if (typeof window !== 'undefined') {
+  // window injecting
+  window.parrots = parrots;
+}
+
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {

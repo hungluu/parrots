@@ -15,3 +15,10 @@ const ParrotsHandler = require('./src/ParrotsHandler')
  * })
  */
 const parrots = (options) => new ParrotsHandler(options)
+
+module.exports = parrots
+
+if (typeof window !== 'undefined') {
+  // window injecting
+  window.parrots = parrots
+}
