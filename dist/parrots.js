@@ -1,4 +1,4 @@
-/*! parrots v0.0.5 | Hung Luu <hungluu2106@gmail.com> */
+/*! parrots v0.0.6 | Hung Luu <hungluu2106@gmail.com> */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -71,10 +71,6 @@
 "use strict";
 
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 /**
  * Continuously synchronizing web items without worrying about lags, delays or misses
  * Using request animation frame if possible
@@ -94,143 +90,115 @@ var kindOf = __webpack_require__(6);
  * @param {Function} options.setter required, is function, set value into items
  * @param {integer} options.duration optional, milliseconds, duration of synchronizing operation, default value is 2000
  */
+var ParrotsHandler = function ParrotsHandler(options) {
+  var defaultOptions = {
+    duration: 2000
 
-var ParrotsHandler = function () {
-  function ParrotsHandler(options) {
-    _classCallCheck(this, ParrotsHandler);
+    // Affected items (receive copied value from source), passed as first arguments of setter
+  };this.items = [];
 
-    var defaultOptions = {
-      duration: 2000
+  // Source to copy from, passed as the only argument of options.getter
+  this.source = null;
 
-      // Affected items (receive copied value from source), passed as first arguments of setter
-    };this.items = [];
+  // Timer of synchronizing operations
+  this.timer = null;
 
-    // Source to copy from, passed as the only argument of options.getter
-    this.source = null;
+  // options
+  this.options = objectAssign({}, defaultOptions, options);
 
-    // Timer of synchronizing operations
-    this.timer = null;
-
-    // options
-    this.options = objectAssign({}, defaultOptions, options);
-
-    if (kindOf(this.options.getter) !== 'function') {
-      throw new Error('[ParrotsHandler] options.getter should be function');
-    }
-
-    if (kindOf(this.options.setter) !== 'function') {
-      throw new Error('[ParrotsHandler] options.setter should be function');
-    }
-
-    // events
-    this.startLoopEvent = this.startLoop.bind(this);
-    this.freeLoopEvent = this.freeLoop.bind(this);
-    this.loopEvent = this.loop.bind(this);
+  if (kindOf(this.options.getter) !== 'function') {
+    throw new Error('[ParrotsHandler] options.getter should be function');
   }
 
+  if (kindOf(this.options.setter) !== 'function') {
+    throw new Error('[ParrotsHandler] options.setter should be function');
+  }
+
+  // events
+  this.startLoopEvent = this.startLoop.bind(this);
+  this.freeLoopEvent = this.freeLoop.bind(this);
+  this.loopEvent = this.loop.bind(this);
+};
+
+ParrotsHandler.prototype = {
   /**
    * Add an affected item (receive synchronized value from source)
    * @param {object} item item that receives synchronized value from source
    * @return {this}
    */
+  to: function to(item) {
+    this.items.push(item);
+    return this;
+  },
 
+  /**
+   * Get a trigger to start synchronizing value from source into items
+   * @param {object} source source of synchronized value passed into items
+   * @return {Function}
+   */
+  from: function from(source) {
+    var _this = this;
 
-  _createClass(ParrotsHandler, [{
-    key: 'to',
-    value: function to(item) {
-      this.items.push(item);
-      return this;
+    return function () {
+      _this.source = source;
+      return _this.startLoopEvent();
+    };
+  },
+
+  // Loop used for synchronizing items
+  loop: function loop() {
+    this.sync();
+
+    // Recall loop in a performant style
+    raf(this.loopEvent);
+  },
+
+  // Sync items
+  sync: function sync() {
+    // Get copied value from source
+    var copiedValue = this.options.getter(this.source);
+    // Copy value to every items in stack
+    for (var idx = 0, maxIndex = this.items.length - 1; idx <= maxIndex; idx++) {
+      // Use setter to copy into affected item
+      this.options.setter(this.items[idx], copiedValue);
     }
+  },
 
-    /**
-     * Get a trigger to start synchronizing value from source into items
-     * @param {object} source source of synchronized value passed into items
-     * @return {Function}
-     */
-
-  }, {
-    key: 'from',
-    value: function from(source) {
-      var _this = this;
-
-      return function () {
-        _this.source = source;
-        return _this.startLoopEvent();
-      };
+  // Start loop
+  startLoop: function startLoop() {
+    if (this.timer === null) {
+      // create new timer
+      this.timer = raf(this.loopEvent);
+      // release timer when time is up
+      setTimeout(this.freeLoopEvent, this.loopDuration);
     }
+  },
 
-    // Loop used for synchronizing items
-
-  }, {
-    key: 'loop',
-    value: function loop() {
-      this.sync();
-
-      // Recall loop in a performant style
-      raf(this.loopEvent);
+  // End loop
+  freeLoop: function freeLoop() {
+    if (this.timer !== null) {
+      // Release timer
+      raf.cancel(this.timer);
     }
+  }
 
-    // Sync items
-
-  }, {
-    key: 'sync',
-    value: function sync() {
-      // Get copied value from source
-      var copiedValue = this.options.getter(this.source);
-      // Copy value to every items in stack
-      for (var idx = 0, maxIndex = this.items.length - 1; idx <= maxIndex; idx++) {
-        // Use setter to copy into affected item
-        this.options.setter(this.items[idx], copiedValue);
-      }
-    }
-
-    // Start loop
-
-  }, {
-    key: 'startLoop',
-    value: function startLoop() {
-      if (this.timer === null) {
-        // create new timer
-        this.timer = raf(this.loopEvent);
-        // release timer when time is up
-        setTimeout(this.freeLoopEvent, this.loopDuration);
-      }
-    }
-
-    // End loop
-
-  }, {
-    key: 'freeLoop',
-    value: function freeLoop() {
-      if (this.timer !== null) {
-        // Release timer
-        raf.cancel(this.timer);
-      }
-    }
-  }]);
-
-  return ParrotsHandler;
-}();
-
-/**
- * Create a new instance of ParrotsHandler
- * @param {object} options options of current handler
- * @param {Function} options.getter required, is function, get value from source
- * @param {Function} options.setter required, is function, set value into items
- * @param {integer} options.duration optional, milliseconds, duration of synchronizing operation, default value is 2000
- * @return {ParrotHandler}
- *
- * @example // Create a handle to synchronize scroll left
- * parrots({
- *  // get scroll left from source
- *  getter: (el) => $(el).scrollLeft(),
- *  // set scroll left into items
- *  setter: (el, value) => $(el).scrollLeft(value)
- * })
- */
-
-
-var parrots = function parrots(options) {
+  /**
+   * Create a new instance of ParrotsHandler
+   * @param {object} options options of current handler
+   * @param {Function} options.getter required, is function, get value from source
+   * @param {Function} options.setter required, is function, set value into items
+   * @param {integer} options.duration optional, milliseconds, duration of synchronizing operation, default value is 2000
+   * @return {ParrotHandler}
+   *
+   * @example // Create a handle to synchronize scroll left
+   * parrots({
+   *  // get scroll left from source
+   *  getter: (el) => $(el).scrollLeft(),
+   *  // set scroll left into items
+   *  setter: (el, value) => $(el).scrollLeft(value)
+   * })
+   */
+};var parrots = function parrots(options) {
   return new ParrotsHandler(options);
 };
 

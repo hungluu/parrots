@@ -1,6 +1,6 @@
 {
   "name": "parrots",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Continuously synchronizing web items without worrying about lags, delay or misses",
   "main": "index.js",
   "scripts": {
