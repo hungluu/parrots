@@ -1,0 +1,40 @@
+{
+  "name": "parrots",
+  "version": "0.0.1",
+  "description": "Continuously synchronizing web items without worrying about lags, delay or misses",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist && webpack",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hungluu2106/parrots.git"
+  },
+  "keywords": [
+    "synchronize",
+    "sync",
+    "web",
+    "request-animation-frame",
+    "cross-browser"
+  ],
+  "author": "Hung Luu <hungluu2106@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hungluu2106/parrots/issues"
+  },
+  "homepage": "https://github.com/hungluu2106/parrots",
+  "dependencies": {
+    "kind-of": "^6.0.2",
+    "object-assign": "^4.1.1",
+    "raf": "^3.4.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "jest": "^22.2.2",
+    "rimraf": "^2.6.2",
+    "webpack": "^3.11.0"
+  }
+}
