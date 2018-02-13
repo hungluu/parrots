@@ -1,6 +1,6 @@
 {
   "name": "parrots",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Continuously synchronizing web items without worrying about lags, delay or misses",
   "main": "index.js",
   "scripts": {
@@ -36,5 +36,8 @@
     "jest": "^22.2.2",
     "rimraf": "^2.6.2",
     "webpack": "^3.11.0"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
