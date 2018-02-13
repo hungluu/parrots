@@ -4,7 +4,8 @@
   "description": "Continuously synchronizing web items without worrying about lags, delay or misses",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "build": "rimraf dist && webpack",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -26,8 +27,14 @@
   "dependencies": {
     "kind-of": "^6.0.2",
     "object-assign": "^4.1.1",
-    "raf": "^3.4.0",
-    "webpack": "^3.11.0"
+    "raf": "^3.4.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "jest": "^22.2.2",
+    "rimraf": "^2.6.2",
+    "webpack": "^3.11.0"
+  }
 }
