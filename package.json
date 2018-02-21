@@ -1,7 +1,7 @@
 {
   "name": "parrots",
-  "version": "0.0.7",
-  "description": "Continuously synchronizing web items without worrying about lags, delay or misses",
+  "version": "0.0.8",
+  "description": "Continuously synchronizing web items in performant way",
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && webpack",

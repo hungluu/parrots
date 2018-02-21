@@ -1,4 +1,4 @@
-/*! parrots v0.0.7 | Hung Luu <hungluu2106@gmail.com> */
+/*! parrots v0.0.8 | Hung Luu <hungluu2106@gmail.com> */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -80,6 +80,8 @@
  */
 
 var raf = __webpack_require__(1);
+var requestAnimationFrame = raf;
+var cancelAnimationFrame = raf.cancel;
 var objectAssign = __webpack_require__(5);
 var isFunction = function isFunction(fn) {
   return fn && {}.toString.call(fn) === '[object Function]';
@@ -152,7 +154,7 @@ ParrotsHandler.prototype = {
     this.sync();
 
     // Recall loop in a performant style
-    this.timer = raf(this.loopEvent);
+    this.timer = requestAnimationFrame(this.loopEvent);
   },
 
   // Sync items
@@ -170,7 +172,7 @@ ParrotsHandler.prototype = {
   startLoop: function startLoop() {
     if (this.timer === null) {
       // create new timer
-      this.timer = raf(this.loopEvent);
+      this.timer = requestAnimationFrame(this.loopEvent);
       // release timer when time is up
       setTimeout(this.freeLoopEvent, this.options.duration);
     }
@@ -180,7 +182,8 @@ ParrotsHandler.prototype = {
   freeLoop: function freeLoop() {
     if (this.timer !== null) {
       // Release timer
-      raf.cancel(this.timer);
+      cancelAnimationFrame(this.timer);
+      this.timer = null;
     }
   }
 

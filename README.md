@@ -3,14 +3,22 @@
 [![Build Status](https://travis-ci.org/hungluu2106/parrots.svg?branch=master)](https://travis-ci.org/hungluu2106/parrots)
 [![npm version](https://badge.fury.io/js/parrots.svg)](https://badge.fury.io/js/parrots)
 
-Continuously synchronizing web items without worrying about lags, delays or misses. Parrot em all! :baby_chick:
+Continuously synchronizing web with performance. Parrot em all! :baby_chick:
 
-Suitable for synchronizing html element scroll left, scroll top, width, height, ... or any other javascript things like object properties, array items.
+Suitable for synchronizing HTML element scroll left, scroll top, width, height, ... or any other things like object properties, array items...
 
 ## Installation
 
 ```shell
 npm i --save parrots
+```
+UMD latest builds also available at [jsDelivr](https://www.jsdelivr.com/package/npm/parrots?path=dist)
+```
+<script src="https://cdn.jsdelivr.net/npm/parrots@latest/dist/parrots.min.js"></script>
+```
+or [unpkg.com](https://unpkg.com/)
+```
+https://unpkg.com/parrots@latest/dist/parrots.min.js
 ```
 
 ## Examples
