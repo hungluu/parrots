@@ -8,7 +8,9 @@
 
 var raf = require('raf')
 var objectAssign = require('object-assign')
-var kindOf = require('kind-of')
+var isFunction = function(fn) {
+  return fn && {}.toString.call(fn) === '[object Function]'
+}
 
 /**
  * Create a handler for synchronizing items
@@ -34,11 +36,11 @@ var ParrotsHandler = function (options) {
   // options
   this.options = objectAssign({}, defaultOptions, options)
 
-  if (kindOf(this.options.getter) !== 'function') {
+  if (!isFunction(this.options.getter)) {
     throw new Error('[ParrotsHandler] options.getter should be function')
   }
 
-  if (kindOf(this.options.setter) !== 'function') {
+  if (!isFunction(this.options.setter)) {
     throw new Error('[ParrotsHandler] options.setter should be function')
   }
 
@@ -76,7 +78,7 @@ ParrotsHandler.prototype = {
     this.sync()
 
     // Recall loop in a performant style
-    raf(this.loopEvent)
+    this.timer = raf(this.loopEvent)
   },
 
   // Sync items
@@ -96,7 +98,7 @@ ParrotsHandler.prototype = {
       // create new timer
       this.timer = raf(this.loopEvent)
       // release timer when time is up
-      setTimeout(this.freeLoopEvent, this.loopDuration)
+      setTimeout(this.freeLoopEvent, this.options.duration)
     }
   },
 
