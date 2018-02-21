@@ -8,6 +8,10 @@ describe('ParrotsHandler', function () {
     getter: getter,
     setter: setter
   })
+  const item1 = { value: 1 }
+  const item2 = { value: 2 }
+  const source = { value: 3 }
+  const trigger = parrots.from(source)
 
   describe('When it is created', function () {
     it('should receive options and merged with default options', function () {
@@ -39,9 +43,6 @@ describe('ParrotsHandler', function () {
   })
 
   describe('When manupilating items', function () {
-    const item1 = { value: 1 }
-    const item2 = { value: 2 }
-
     it('can add any item', function () {
       parrots.to(item1)
       parrots.to(item2)
@@ -58,10 +59,29 @@ describe('ParrotsHandler', function () {
     })
 
     it('should receive source from trigger when it is called', function () {
-      const source = { value: 3 }
-      const trigger = parrots.from(source)
       trigger()
       expect(parrots.source).toBe(source)
+    })
+
+    it('should continuosly synchronizing items during duration', function (done) {
+      parrots.items[0].value = source.value + 1
+      setTimeout(function () {
+        expect(parrots.items[0].value).toBe(source.value)
+        done()
+      }, 1000)
+    })
+
+    it('should synchronize items', function (done) {
+      setTimeout(function () {
+        expect(parrots.items[0].value).toBe(3)
+        expect(parrots.items[1].value).toBe(3)
+        done()
+      }, 1000)
+    })
+
+    it('should stop synchronizing items after duration', function () {
+      parrots.items[0].value = source.value + 1
+      expect(parrots.items[0].value).toBe(source.value + 1)
     })
   })
 })
