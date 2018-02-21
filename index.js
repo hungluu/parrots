@@ -7,6 +7,8 @@
  */
 
 var raf = require('raf')
+var requestAnimationFrame = raf
+var cancelAnimationFrame = raf.cancel
 var objectAssign = require('object-assign')
 var isFunction = function(fn) {
   return fn && {}.toString.call(fn) === '[object Function]'
@@ -78,7 +80,7 @@ ParrotsHandler.prototype = {
     this.sync()
 
     // Recall loop in a performant style
-    this.timer = raf(this.loopEvent)
+    this.timer = requestAnimationFrame(this.loopEvent)
   },
 
   // Sync items
@@ -96,7 +98,7 @@ ParrotsHandler.prototype = {
   startLoop: function () {
     if (this.timer === null) {
       // create new timer
-      this.timer = raf(this.loopEvent)
+      this.timer = requestAnimationFrame(this.loopEvent)
       // release timer when time is up
       setTimeout(this.freeLoopEvent, this.options.duration)
     }
@@ -106,7 +108,8 @@ ParrotsHandler.prototype = {
   freeLoop: function () {
     if (this.timer !== null) {
       // Release timer
-      raf.cancel(this.timer)
+      cancelAnimationFrame(this.timer)
+      this.timer = null
     }
   }
 }
