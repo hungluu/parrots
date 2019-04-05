@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && webpack",
-    "test": "jest"
+    "test": "mocha ./tests/*.spec.js",
+    "testBrowsers": "wdio wdio.conf.js",
+    "genConfig": "wdio config"
   },
   "repository": {
     "type": "git",
@@ -32,8 +34,12 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
     "jest": "^22.2.2",
+    "mocha": "^5.0.1",
     "rimraf": "^2.6.2",
+    "wdio": "^1.0.3",
+    "wdio-mocha-framework": "^0.5.12",
     "webpack": "^3.11.0"
   },
   "files": [
