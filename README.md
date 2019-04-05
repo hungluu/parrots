@@ -1,6 +1,6 @@
 # Parrots
 
-[![Build Status](https://travis-ci.org/hungluu2106/parrots.svg?branch=master)](https://travis-ci.org/hungluu2106/parrots)
+[![Build Status](https://travis-ci.org/hungluu/parrots.svg?branch=master)](https://travis-ci.org/hungluu/parrots)
 [![npm version](https://badge.fury.io/js/parrots.svg)](https://badge.fury.io/js/parrots)
 
 Continuously synchronizing web with performance. Parrot em all! :baby_chick:
